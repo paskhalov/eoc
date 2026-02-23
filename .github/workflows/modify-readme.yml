@@ -22,6 +22,8 @@ jobs:
         run: npm install -g
       - name: Commit and push if changed
         run: |-
+          trap 'echo "FAILED AT: $BASH_COMMAND"' ERR
+          set -euxo pipefail
           script -e -q -c "eoc --help" > /tmp/HELP_TEXT
           script -e -q -c "./scripts/markdown_from_help.js commands /tmp/HELP_TEXT" > /tmp/COMMANDS_TEXT
           script -e -q -c "./scripts/modify_readme.js commands /tmp/COMMANDS_TEXT README.md" > /tmp/README.md
