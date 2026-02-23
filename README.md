@@ -115,39 +115,23 @@ You can also do many other things with `eoc` commands
 (the flow is explained in [this blog post][blog]):
 
 <!-- BEGIN COMMANDS SECTION -->
-* `register` finds necessary `.eo` files and registers them in a JSON catalog
-* `assemble` parses `.eo` files into `.xmir`, optimizes them,
-  and pulls foreign EO objects
-* `transpile` converts `.xmir` files to the target programming
-language (Java by default)
-* `compile` converts target language sources (e.g., `.java`)
-to binaries (e.g., `.class`)
-* `link` puts all binaries together into a single executable binary
-* `dataize` dataizes a single object from the executable binary
-* `test` dataizes all visible unit tests
-* `lint` finds style-related errors in EO and XMIR files
-* `jeo:disassemble` converts Java `.class` files to `.xmir`
-(via [jeo](https://github.com/objectionary/jeo-maven-plugin))
-* `jeo:assemble` converts `.xmir` files to Java `.class` files
-(via [jeo](https://github.com/objectionary/jeo-maven-plugin))
+/home/runner/work/eoc/eoc/scripts/markdown_from_help.js:29
+    throw new Error('no data something wrong');
+    ^
+
+Error: no data something wrong
+    at parseCommandsBlock [90m(/home/runner/work/eoc/eoc/[39mscripts/markdown_from_help.js:29:11[90m)[39m
+    at main [90m(/home/runner/work/eoc/eoc/[39mscripts/markdown_from_help.js:47:20[90m)[39m
+    at Object.<anonymous> [90m(/home/runner/work/eoc/eoc/[39mscripts/markdown_from_help.js:52:3[90m)[39m
+[90m    at Module._compile (node:internal/modules/cjs/loader:1364:14)[39m
+[90m    at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)[39m
+[90m    at Module.load (node:internal/modules/cjs/loader:1203:32)[39m
+[90m    at Module._load (node:internal/modules/cjs/loader:1019:12)[39m
+[90m    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)[39m
+[90m    at node:internal/main/run_main_module:28:49[39m
+
+Node.js v18.20.8
 
-There are also commands that help manipulate with XMIR and EO sources
-(the list is not completed, while some of them are not implemented as of yet):
-
-* `audit` inspects all required packages and reports their status
-* `foreign` inspects all objects found in the program after the `assemble` step
-* `sodg` generates `.sodg` from `.xmir`, further rederable as XML or [Dot][dot]
-* `print` generates `.eo` files from `.xmir` files
-* `generate_comments` generates `.json` files with LLM-generated
-  documentation for `.eo` structures
-* `docs` generates HTML documentation from `.xmir` files
-* `latex` generates `.tex` files from `.eo` sources
-* `fmt` formats `.eo` files in the source directory
-* ~~`translate` converts Java/C++/Python/etc. program to EO program~~
-* ~~`demu` removes `cage` and `memory` objects~~
-* ~~`dejump` removes `goto` objects~~
-* ~~`infer` suggests object names where it's possible to infer them~~
-* ~~`flatten` moves inner objects to upper level~~
 <!-- END COMMANDS SECTION -->
 
 
