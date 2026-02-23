@@ -19,7 +19,7 @@ jobs:
           node-version: "18.x"
           check-latest: false
       - name: Set CI 
-      - run: npm ci
+        run: npm ci
       - name: Run npm install
         run: sudo npm install -g .
       - name: Commit and push if changed
