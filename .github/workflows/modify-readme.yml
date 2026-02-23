@@ -1,0 +1,33 @@
+name: Build README
+
+on:
+  workflow_dispatch:   # allow manual run
+  push:
+    paths:
+      - "src/eoc.js"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+      - name: Use Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "18.x"
+          check-latest: false
+      - name: Run npm install
+        run: npm install -g
+      - name: Commit and push if changed
+        run: |-
+          script -q -c "eoc --help" > /tmp/HELP_TEXT
+          script -q -c "./scripts/markdown_from_help.js commands /tmp/HELP_TEXT" > /tmp/COMMANDS_TEXT
+          script -q -c "./scripts/modify_readme.js commands /tmp/COMMANDS_TEXT README.md" > /tmp/README.md
+          cp /tmp/README.md README.md
+          git config --global user.email "actions@users.noreply.github.com"
+          git config --global user.name "modifyreadmy-bot"
+          git add README.md
+          git commit -m "sections in README have been modifed [skip ci]" || exit 0
+          git push
