@@ -19,7 +19,7 @@ jobs:
           node-version: "18.x"
           check-latest: false
       - name: Run npm install
-        run: npm install -g .
+        run: sudo npm install -g .
       - name: Commit and push if changed
         run: |-
           trap 'echo "FAILED AT: $BASH_COMMAND"' ERR
