@@ -1,14 +1,20 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 Objectionary.com
+# SPDX-License-Identifier: MIT
+---
+# yamllint disable rule:line-length
 name: modify-readme
 
-on:
-  workflow_dispatch:   # allow manual run
+'on':
+  workflow_dispatch:
   push:
     paths:
       - "src/eoc.js"
-
+concurrency:
+  group: modifyreadme-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Check out repo
@@ -18,22 +24,8 @@ jobs:
         with:
           node-version: "18.x"
           check-latest: false
-      - name: Set CI 
+      - name: Clean install
         run: npm ci
-      - name: Run npm install
-        run: sudo npm install -g .
-      - name: Commit and push if changed
+      - name: Run modify_read script
         run: |-
-          trap 'echo "FAILED AT: $BASH_COMMAND"' ERR
-          set -euxo pipefail
-          ls
-          eoc --help
-          script -e -q -c "eoc --help" > /tmp/HELP_TEXT
-          script -e -q -c "./scripts/markdown_from_help.js commands /tmp/HELP_TEXT" > /tmp/COMMANDS_TEXT
-          script -e -q -c "./scripts/modify_readme.js commands /tmp/COMMANDS_TEXT README.md" > /tmp/README.md
-          cp /tmp/README.md README.md
-          git config --global user.email "actions@users.noreply.github.com"
-          git config --global user.name "modifyreadmy-bot"
-          git add README.md
-          git commit -m "sections in README have been modifed [skip ci]" || exit 0
-          git push
+          bash scripts/modify_readme.sh
