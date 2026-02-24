@@ -6,9 +6,10 @@
 trap 'echo "FAILED AT: $BASH_COMMAND" with $?' ERR
 set -euxo pipefail
 eoc --help
-COLUMNS=1000 eoc --help > /tmp/HELP_TEXT
-COLUMNS=1000 ./scripts/markdown_from_help.js commands /tmp/HELP_TEXT > /tmp/COMMANDS_TEXT
-COLUMNS=1000 ./scripts/modify_readme.js commands /tmp/COMMANDS_TEXT README.md > /tmp/README.md
+stty cols 1000
+eoc --help > /tmp/HELP_TEXT
+./scripts/markdown_from_help.js commands /tmp/HELP_TEXT > /tmp/COMMANDS_TEXT
+./scripts/modify_readme.js commands /tmp/COMMANDS_TEXT README.md > /tmp/README.md
 cp /tmp/README.md README.md
 git config --global user.email "actions@users.noreply.github.com"
 git config --global user.name "modifyreadmy-bot"
