@@ -115,34 +115,34 @@ You can also do many other things with `eoc` commands
 (the flow is explained in [this blog post][blog]):
 
 <!-- BEGIN COMMANDS SECTION -->
-| Command | Description |
-|--------|-------------|
-| `assemble` | Parse EO files into XMIR and join them with |
-| `required dependencies` |  |
-| `audit` | Inspect all packages and report their status |
-| `clean [options]` | Delete all temporary files |
-| `compile` | Compile target language sources into binaries |
-| `dataize [options]` | Run the single executable binary and dataize an |
-| `object` |  |
-| `docs` | Generate documentation from XMIR files |
-| `fmt` | Format EO files in the source directory |
-| `foreign` | Inspect and print the list of foreign objects |
-| `generate_comments [options]` | Generate documentation with LLM |
-| `help [command]` | display help for command |
-| `jeo:assemble [options]` | Assemble .xmir files to .class files |
-| `jeo:disassemble [options]` | Disassemble .class files to .xmir files |
-| `latex` | Generate LaTeX files from EO sources |
-| `link` | Link together all binaries into a single |
-| `executable binary` |  |
-| `lint` | Lint XMIR files and fail if any issues inside |
-| `parse` | Parse EO files into XMIR |
-| `print [options]` | Generate EO files from XMIR files |
-| `register` | Register all visible EO source files |
-| `resolve` | Resolve all the dependencies required for |
-| `compilation` |  |
-| `sodg [options]` | Generate SODG files from XMIR |
-| `test [options]` | Run all visible unit tests |
-| `transpile` | Convert EO files into target language |
+| Command | Description |
+|--------|-------------|
+| `assemble` | Parse EO files into XMIR and join them with |
+| `required dependencies` |  |
+| `audit` | Inspect all packages and report their status |
+| `clean [options]` | Delete all temporary files |
+| `compile` | Compile target language sources into binaries |
+| `dataize [options]` | Run the single executable binary and dataize an |
+| `object` |  |
+| `docs` | Generate documentation from XMIR files |
+| `fmt` | Format EO files in the source directory |
+| `foreign` | Inspect and print the list of foreign objects |
+| `generate_comments [options]` | Generate documentation with LLM |
+| `help [command]` | display help for command |
+| `jeo:assemble [options]` | Assemble .xmir files to .class files |
+| `jeo:disassemble [options]` | Disassemble .class files to .xmir files |
+| `latex` | Generate LaTeX files from EO sources |
+| `link` | Link together all binaries into a single |
+| `executable binary` |  |
+| `lint` | Lint XMIR files and fail if any issues inside |
+| `parse` | Parse EO files into XMIR |
+| `print [options]` | Generate EO files from XMIR files |
+| `register` | Register all visible EO source files |
+| `resolve` | Resolve all the dependencies required for |
+| `compilation` |  |
+| `sodg [options]` | Generate SODG files from XMIR |
+| `test [options]` | Run all visible unit tests |
+| `transpile` | Convert EO files into target language |
 
 <!-- END COMMANDS SECTION -->
 
