@@ -25,7 +25,9 @@ jobs:
           node-version: "18.x"
           check-latest: false
       - name: Clean install
-        run: npm ci -g
+        run: npm ci
+      - name: Install global
+        run: npm install -g
       - name: Run modify_read script
         run: |-
           bash scripts/modify_readme.sh
