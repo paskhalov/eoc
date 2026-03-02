@@ -36,6 +36,10 @@ function parseCommandsBlock(block_params,text) {
   return `${table.join("\n")  }\n`;
 }
 
+module.exports = {
+  parseCommandsBlock
+};
+
 function main() {
   const sectionName = process.argv[2];
   if (!['commands', 'options'].includes(sectionName))
