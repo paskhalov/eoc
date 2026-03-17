@@ -6,8 +6,8 @@
 
 const fs = require("fs");
 const assert = require('assert');
-const { parseCommandsBlock } = require("./markdown_from_help");
-const { captureCommandOutput } = require("./capture_output");
+const { parseCommandsBlock } = require("./help_to_markdown");
+const { captureCommandOutput } = require("./pty_capture");
 
 (async function (){
     
