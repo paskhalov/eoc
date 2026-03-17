@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2022-2026 Objectionary.com
+ * SPDX-License-Identifier: MIT
+ */
+
+const pty = require("node-pty");
+
+function captureCommandOutput(command, args = [], options = {}) {
+  return new Promise((resolve, reject) => {
+    let output = "";
+
+    // Create a fake wide terminal
+    const term = pty.spawn(command, args, {
+      name: "xterm-color",
+      cols: options.cols ?? 200, // controls wrapping width
+      rows: options.rows ?? 40,
+      cwd: options.cwd ?? process.cwd(),
+      env: options.env ?? process.env,
+    });
+
+    term.onData((data) => {
+      output += data;
+    });
+
+    term.onExit(({ exitCode }) => {
+      if (exitCode !== 0) {
+        reject(new Error(`${command} exited with ${exitCode}`));
+      } else {
+        resolve(output);
+      }
+    });
+  });
+}
+
+module.exports = { captureCommandOutput };
