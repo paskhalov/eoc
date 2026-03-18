@@ -6,7 +6,7 @@
 
 const fs = require("fs");
 const assert = require('assert');
-const { parseCommandsBlock } = require("./help_to_markdown");
+const { parseBlock } = require("./help_to_markdown");
 const { captureCommandOutput } = require("./pty_capture");
 
 (async function (){
@@ -17,7 +17,7 @@ const { captureCommandOutput } = require("./pty_capture");
     assert.ok(["Options:","Commands:"].every(sub => help_text.includes(sub)),'"eoc --help" should includes Commands and Options');
     
     tmp_data['HELP_TEXT'] = help_text;
-    const res = parseCommandsBlock(['Commands:','Command'],help_text);
+    const res = parseBlock(['Commands:','Command'],help_text);
     console.log(res);
     fs.writeFileSync('/tmp/COMMANDS_MARKDOWN', res);
     

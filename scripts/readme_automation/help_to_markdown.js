@@ -8,7 +8,7 @@ const { spawnSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-function parseCommandsBlock(block_params,text) {
+function parseBlock(block_params,text) {
   const lines = text.split("\n");
   let inBlock = false;
   const rows = [];
@@ -37,7 +37,7 @@ function parseCommandsBlock(block_params,text) {
 }
 
 module.exports = {
-  parseCommandsBlock
+  parseBlock
 };
 
 function main() {
@@ -48,7 +48,7 @@ function main() {
   }
   const block_params = {'commands':['Commands:','Command'],'options':['Options:','Option']}[sectionName];
   const data = fs.readFileSync(process.argv[3], 'utf8');
-  const markdown = parseCommandsBlock(block_params,data);
+  const markdown = parseBlock(block_params,data);
   process.stdout.write(markdown);
 };
 
