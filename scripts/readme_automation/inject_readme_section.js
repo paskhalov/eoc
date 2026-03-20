@@ -20,6 +20,10 @@ function updateSection(sectionName, newContent, readMeContent) {
   return readMeContent.replace(regex, `$1\n${newContent}\n$3`);
 }
 
+module.exports = {
+  updateSection
+};
+
 function main (){
   const sectionName = process.argv[2];
   if (!['commands', 'options'].includes(sectionName))

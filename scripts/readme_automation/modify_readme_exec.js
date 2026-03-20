@@ -8,6 +8,7 @@ const fs = require("fs");
 const assert = require('assert');
 const { parseBlock } = require("./help_to_markdown");
 const { captureCommandOutput } = require("./pty_capture");
+const { updateSection } = require("./inject_readme_section");
 
 (async function (){
     
