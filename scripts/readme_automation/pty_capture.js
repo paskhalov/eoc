@@ -21,10 +21,10 @@ function captureCommandOutput(command, args = []) {
       output += data;
     });
     term.onExit(({ exitCode }) => {
-      if (exitCode !== 0) {
-        reject(new Error(`${command} exited with ${exitCode}`));
-      } else {
+      if (exitCode === 0) {
         resolve(output);
+      } else {
+        reject(new Error(`${command} exited with ${exitCode}`));
       }
     });
   });
