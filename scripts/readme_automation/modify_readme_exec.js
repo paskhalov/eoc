@@ -18,7 +18,10 @@ const { captureCommandOutput } = require("./pty_capture");
     
     tmp_data['HELP_TEXT'] = help_text;
     const res = parseBlock(['Commands:','Command'],help_text);
-    console.log(res);
-    fs.writeFileSync('/tmp/COMMANDS_MARKDOWN', res);
+    //console.log(res);
+    //fs.writeFileSync('/tmp/COMMANDS_MARKDOWN', res);
     
+    let readMeContent = fs.readFileSync('fake_readme.md', "utf8");
+    readMeContent = updateSection('commands', res, readMeContent);
+    console.log(readMeContent);
 })();
