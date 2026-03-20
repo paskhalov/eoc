@@ -6,17 +6,17 @@
 
 const pty = require("node-pty");
 
-function captureCommandOutput(command, args = [], options = {}) {
+function captureCommandOutput(command, args = []) {
   return new Promise((resolve, reject) => {
     let output = "";
 
     // Create a fake wide terminal
     const term = pty.spawn(command, args, {
       name: "xterm-color",
-      cols: options.cols ?? 200, // controls wrapping width
-      rows: options.rows ?? 40,
-      cwd: options.cwd ?? process.cwd(),
-      env: options.env ?? process.env,
+      cols: 200, // controls wrapping width
+      rows: 40,
+      cwd: process.cwd(),
+      env: process.env,
     });
 
     term.onData((data) => {
