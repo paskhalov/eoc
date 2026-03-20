@@ -9,7 +9,6 @@ const pty = require("node-pty");
 function captureCommandOutput(command, args = []) {
   return new Promise((resolve, reject) => {
     let output = "";
-
     // Create a fake wide terminal
     const term = pty.spawn(command, args, {
       name: "xterm-color",
@@ -18,11 +17,9 @@ function captureCommandOutput(command, args = []) {
       cwd: process.cwd(),
       env: process.env,
     });
-
     term.onData((data) => {
       output += data;
     });
-
     term.onExit(({ exitCode }) => {
       if (exitCode !== 0) {
         reject(new Error(`${command} exited with ${exitCode}`));
