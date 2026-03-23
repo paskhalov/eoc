@@ -8,6 +8,16 @@ const { spawnSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
+function tableTemplate(rows,firstColumnName)
+{
+  const table = [
+    `| ${firstColumnName} | Description |`,
+    "|--------|-------------|",
+    ...rows.map(([cmd, desc]) => `| \`${cmd}\` | ${desc} |`)
+  ];
+  return `${table.join("\n")  }\n`;
+}
+
 function parseBlock(block_params,text) {
   const lines = text.split("\n");
   let inBlock = false;
@@ -28,12 +38,7 @@ function parseBlock(block_params,text) {
   {
     throw new Error('no data something wrong');
   }
-  const table = [
-    `| ${block_params[1]} | Description |`,
-    "|--------|-------------|",
-    ...rows.map(([cmd, desc]) => `| \`${cmd}\` | ${desc} |`)
-  ];
-  return `${table.join("\n")  }\n`;
+  return tableTemplate(rows,block_params[1])
 }
 
 module.exports = {
