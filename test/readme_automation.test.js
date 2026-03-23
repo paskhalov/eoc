@@ -60,10 +60,8 @@ describe("readme_automation scripts", () => {
       "  -h, --help  output help",
       ""
     ].join("\n");
-    const markdown = parseBlock(["Commands:", "Command"], text);
-    assert.ok(markdown.includes("| Command | Description |"));
-    assert.ok(markdown.includes("| `foo` | does foo |"));
-    assert.ok(markdown.includes("| `bar` | does bar |"));
+    const res = parseBlock(["Commands:", "Command"], text);
+    assert.ok(res == [['foo','does foo'],['bar','does bar']] );
   });
 
   it("parseBlock throws when no rows are found", () => {
