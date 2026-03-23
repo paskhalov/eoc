@@ -44,7 +44,7 @@ function parseBlock(block_params,text) {
   {
     throw new Error('no data something wrong');
   }
-  return tableTemplate(rows,block_params[1])
+  return rows;
 }
 
 module.exports = {
