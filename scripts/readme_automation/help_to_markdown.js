@@ -18,6 +18,12 @@ function tableTemplate(rows,firstColumnName)
   return `${table.join("\n")  }\n`;
 }
 
+function bulletListTemplate(rows)
+{
+    const list = rows.map(([cmd, desc]) => `* \`${cmd}\`  ${desc}`);
+    return `${list.join("\n")  }\n`;
+}
+
 function parseBlock(block_params,text) {
   const lines = text.split("\n");
   let inBlock = false;
