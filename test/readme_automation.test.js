@@ -15,10 +15,10 @@ describe("readme_automation scripts", () => {
   it("parseBlock builds a markdown table from a help block", () => {
     const { parseBlock } = require(path.join(scriptsDir, "help_to_markdown.js"));
     const text = `
-Usage: eoc [options] [command]",
+Usage: eoc [options] [command]\n
 Commands:
   foo   does foo
-  bar   does bar
+  bar   does bar\n
 Options:
   -h, --help  output help
 `;
