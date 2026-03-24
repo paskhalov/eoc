@@ -14,7 +14,7 @@ describe("readme_automation scripts", () => {
   const scriptsDir = path.resolve(__dirname, "../scripts/readme_automation");
   it("parseBlock builds a markdown table from a help block", () => {
     const { parseBlock } = require(path.join(scriptsDir, "help_to_markdown.js"));
-    const text = `\nUsage: eoc [options] [command]\nCommands:\n  foo   does foo\n  bar   does bar\nOptions:\n  -h, --help  output help`;
+    const text = `\nUsage: eoc [options] [command]\nCommands:\n  foo   does foo\n  bar   does bar\n\nOptions:\n  -h, --help  output help`;
     const res = parseBlock("Commands:", text);
     assert.deepEqual(res,[['foo','does foo'],['bar','does bar']]);
     const res2 = parseBlock("Options:", text);
