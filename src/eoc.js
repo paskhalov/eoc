@@ -426,13 +426,9 @@ if (require.main === module) {
   }
 }
 
-function getHelp() {
+module.exports.getHelp = function getHelp() {
   return program.helpInformation();
 }
-
-module.exports = {
-  getHelp
-};
 
 /**
  * Checks --clean option and clears the .eoc directory if true.

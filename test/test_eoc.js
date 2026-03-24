@@ -20,7 +20,7 @@ describe('eoc', () => {
     assert(stdout.includes(version.when));
     done();
   });
-  it('can get help from eoc as module', (done) => {
+  it('can get help from eoc as a module', (done) => {
     const output = require('../src/eoc').getHelp();
     assert(output.includes('Usage: eoc'));
     assert(output.includes(version.what));
