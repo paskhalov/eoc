@@ -52,7 +52,7 @@ describe("readme_automation scripts", () => {
   it("parseBlock throws when no rows are found", () => {
     const { parseBlock } = require(helpToMarkdownPath);
     assert.throws(
-      () => parseBlock(["Commands:", "Command"], "Commands:\n\n"),
+      () => parseBlock("Commands:", ""),
       /no data/
     );
   });
