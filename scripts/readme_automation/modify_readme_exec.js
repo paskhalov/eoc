@@ -7,12 +7,12 @@
 const fs = require("fs");
 const assert = require('assert');
 const { parseBlock } = require("./help_to_markdown");
-const { captureCommandOutput } = require("./pty_capture");
+const { getHelp } = require("./eoc");
 const { updateSection } = require("./inject_readme_section");
 
 async function main (){
   const tmp_data = {};
-  let help_text = await captureCommandOutput("eoc", ["--help"]);
+  let help_text = getHelp();
   help_text = help_text.replace(/\r\n/g, "\n");
   assert.ok(["Options:","Commands:"].every(sub => help_text.includes(sub)),'"eoc --help" should includes Commands and Options');
   tmp_data.HELP_TEXT = help_text;
