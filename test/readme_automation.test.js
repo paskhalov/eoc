@@ -34,10 +34,10 @@ describe("readme_automation scripts", () => {
     assert.ok(!updated.includes("old"));
     assert.ok(["new content","keep","after","before","<!-- BEGIN COMMANDS SECTION -->"].every(sub => updated.includes(sub)));
   });
-  it("captureCommandOutput resolves collected output", async () => {
-    const { captureCommandOutput } = require(path.join(scriptsDir, "pty_capture.js"));
-    const output = await captureCommandOutput("printf", ["hello"]);
-    assert.strictEqual(output, "hello");
+  it("can get help from eoc module", async () => {
+    const { getHelp } = require('../src/eoc.js');
+    const output = getHelp();
+    assert.ok(output.includes('EO command-line toolkit'));
   });
   it("bulletListTemplate renders a list", async () => {
     const { bulletListTemplate } = require(path.join(scriptsDir, "help_to_markdown.js"));
