@@ -87,7 +87,7 @@ describe("readme_automation scripts", () => {
 
       const { bulletListTemplate } = require(helpToMarkdownPath);
       const output = bulletListTemplate([['one','a'],['two','b'],['three','c']]);
-      assert.strictEqual(output, "hello");
+      assert.strictEqual(output, "* `one`  a\n* `two`  b\n* `three`  c\n");
   });
 
 });
