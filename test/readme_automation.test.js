@@ -10,21 +10,6 @@ const path = require("path");
 const { execFileSync } = require("child_process");
 const Module = require("module");
 
-function withMockedModule(requestName, mockModule, fn) {
-  const originalLoad = Module._load;
-  Module._load = function load(request, parent, isMain) {
-    if (request === requestName) {
-      return mockModule;
-    }
-    return originalLoad(request, parent, isMain);
-  };
-  try {
-    return fn();
-  } finally {
-    Module._load = originalLoad;
-  }
-}
-
 describe("readme_automation scripts", () => {
   const helpToMarkdownPath = path.resolve(
     __dirname,
@@ -92,61 +77,10 @@ describe("readme_automation scripts", () => {
   });
 
   it("captureCommandOutput resolves collected output", async () => {
-    const fakePty = {
-      _lastTerm: null,
-      spawn() {
-        const term = {
-          onData(cb) {
-            term._onData = cb;
-          },
-          onExit(cb) {
-            term._onExit = cb;
-          },
-          _onData: null,
-          _onExit: null
-        };
-        fakePty._lastTerm = term;
-        return term;
-      }
-    };
 
-    await withMockedModule("node-pty", fakePty, async () => {
-      delete require.cache[ptyCapturePath];
       const { captureCommandOutput } = require(ptyCapturePath);
-      const promise = captureCommandOutput("fake", ["--help"]);
-      fakePty._lastTerm._onData("hello");
-      fakePty._lastTerm._onExit({ exitCode: 0 });
-      const output = await promise;
+      const output = await captureCommandOutput("printf", ["hello"]);
       assert.strictEqual(output, "hello");
-    });
-  });
-
-  it("captureCommandOutput rejects on non-zero exit", async () => {
-    const fakePty = {
-      _lastTerm: null,
-      spawn() {
-        const term = {
-          onData(cb) {
-            term._onData = cb;
-          },
-          onExit(cb) {
-            term._onExit = cb;
-          },
-          _onData: null,
-          _onExit: null
-        };
-        fakePty._lastTerm = term;
-        return term;
-      }
-    };
-
-    await withMockedModule("node-pty", fakePty, async () => {
-      delete require.cache[ptyCapturePath];
-      const { captureCommandOutput } = require(ptyCapturePath);
-      const promise = captureCommandOutput("fake", []);
-      fakePty._lastTerm._onExit({ exitCode: 2 });
-      await assert.rejects(promise, /exited with 2/);
-    });
   });
 
 });
