@@ -54,7 +54,7 @@ keep
 after`
     const updated = updateSection("commands", "new content", readme);
     assert.ok(!updated.includes("old"));
-    assert.ok(["new content","keep","after","before"].every(sub => readme.includes(sub))
+    assert.ok(["new content","keep","after","before"].every(sub => readme.includes(sub)));
   });
 
   it("captureCommandOutput resolves collected output", async () => {
