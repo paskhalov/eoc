@@ -14,14 +14,7 @@ describe("readme_automation scripts", () => {
   const scriptsDir = path.resolve(__dirname, "../scripts/readme_automation");
   it("parseBlock builds a markdown table from a help block", () => {
     const { parseBlock } = require(path.join(scriptsDir, "help_to_markdown.js"));
-    const text = `
-Usage: eoc [options] [command]\n
-Commands:
-  foo   does foo
-  bar   does bar\n
-Options:
-  -h, --help  output help
-`;
+    const text = `\nUsage: eoc [options] [command]\nCommands:\n  foo   does foo\n  bar   does bar\nOptions:\n  -h, --help  output help`;
     const res = parseBlock("Commands:", text);
     assert.deepEqual(res,[['foo','does foo'],['bar','does bar']]);
     const res2 = parseBlock("Options:", text);
@@ -36,15 +29,7 @@ Options:
   });
   it("updateSection replaces only the requested section", () => {
     const { updateSection } = require(path.join(scriptsDir, "inject_readme_section.js"));
-    const readme = `
-before
-<!-- BEGIN COMMANDS SECTION -->
-old
-<!-- END COMMANDS SECTION -->
-<!-- BEGIN OPTIONS SECTION -->
-keep
-<!-- END OPTIONS SECTION -->
-after`
+    const readme = `before\n<!-- BEGIN COMMANDS SECTION -->\nold\n<!-- END COMMANDS SECTION -->\n<!-- BEGIN OPTIONS SECTION -->\nkeep\n<!-- END OPTIONS SECTION -->\nafter`
     const updated = updateSection("commands", "new content", readme);
     assert.ok(!updated.includes("old"));
     assert.ok(["new content","keep","after","before","<!-- BEGIN COMMANDS SECTION -->"].every(sub => updated.includes(sub)));
