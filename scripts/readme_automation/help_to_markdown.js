@@ -24,12 +24,12 @@ function bulletListTemplate(rows)
     return `${list.join("\n")  }\n`;
 }
 
-function parseBlock(block_params,text) {
+function parseBlock(block_name,text) {
   const lines = text.split("\n");
   let inBlock = false;
   const rows = [];
   for (const line of lines) {
-    if (line.trim() === block_params[0]) {
+    if (line.trim() === block_name) {
       inBlock = true;
     }
     else if (inBlock) {

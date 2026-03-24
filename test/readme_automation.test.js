@@ -60,7 +60,7 @@ describe("readme_automation scripts", () => {
       "  -h, --help  output help",
       ""
     ].join("\n");
-    const res = parseBlock(["Commands:", "Command"], text);
+    const res = parseBlock("Commands:", text);
     assert.equal(JSON.stringify(res),JSON.stringify([['foo','does foo'],['bar','does bar']]) );
   });
 
