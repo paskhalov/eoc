@@ -8,7 +8,7 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-export function updateSection(sectionName, newContent, readMeContent) {
+function updateSection(sectionName, newContent, readMeContent) {
   const start = `<!-- BEGIN ${sectionName.toUpperCase()} SECTION -->`;
   const end = `<!-- END ${sectionName.toUpperCase()} SECTION -->`;
   const regex = new RegExp(
@@ -17,3 +17,7 @@ export function updateSection(sectionName, newContent, readMeContent) {
   );
   return readMeContent.replace(regex, `$1\n${newContent}\n$3`);
 }
+
+module.exports = {
+  updateSection
+};
