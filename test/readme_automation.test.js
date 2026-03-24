@@ -47,6 +47,9 @@ describe("readme_automation scripts", () => {
     ].join("\n");
     const res = parseBlock("Commands:", text);
     assert.equal(JSON.stringify(res),JSON.stringify([['foo','does foo'],['bar','does bar']]) );
+    const res = parseBlock("Options:", text);
+    assert.equal(JSON.stringify(res),JSON.stringify([['-h, --help','output help']]) );
+
   });
 
   it("parseBlock throws when no rows are found", () => {
