@@ -23,19 +23,3 @@ function updateSection(sectionName, newContent, readMeContent) {
 module.exports = {
   updateSection
 };
-
-function main (){
-  const sectionName = process.argv[2];
-  if (!['commands', 'options'].includes(sectionName))
-  {
-    throw new Error('this section name is not allowed');
-  }
-  const newContent = fs.readFileSync(process.argv[3], "utf8");
-  let readMeContent = fs.readFileSync(process.argv[4], "utf8");
-  readMeContent = updateSection(sectionName, newContent, readMeContent);
-  process.stdout.write(readMeContent);
-}
-
-if (require.main === module) {
-  main();
-};

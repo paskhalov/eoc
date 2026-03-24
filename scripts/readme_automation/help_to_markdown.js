@@ -51,18 +51,3 @@ module.exports = {
   parseBlock, bulletListTemplate
 };
 
-function main() {
-  const sectionName = process.argv[2];
-  if (!['commands', 'options'].includes(sectionName))
-  {
-    throw new Error('wrong section name');
-  }
-  const block_params = {'commands':['Commands:','Command'],'options':['Options:','Option']}[sectionName];
-  const data = fs.readFileSync(process.argv[3], 'utf8');
-  const markdown = parseBlock(block_params,data);
-  process.stdout.write(markdown);
-};
-
-if (require.main === module) {
-  main();
-};
