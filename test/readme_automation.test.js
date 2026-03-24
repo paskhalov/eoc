@@ -15,17 +15,16 @@ describe("readme_automation scripts", () => {
 
   it("parseBlock builds a markdown table from a help block", () => {
     const { parseBlock } = require(path.join(scriptsDir, "help_to_markdown.js"));
-    const text = [
-      "Usage: eoc [options] [command]",
-      "",
-      "Commands:",
-      "  foo   does foo",
-      "  bar   does bar",
-      "",
-      "Options:",
-      "  -h, --help  output help",
-      ""
-    ].join("\n");
+    const text = `
+Usage: eoc [options] [command]",
+
+Commands:
+  foo   does foo
+  bar   does bar
+
+Options:
+  -h, --help  output help
+`;
     const res = parseBlock("Commands:", text);
     assert.equal(JSON.stringify(res),JSON.stringify([['foo','does foo'],['bar','does bar']]) );
     const res2 = parseBlock("Options:", text);
