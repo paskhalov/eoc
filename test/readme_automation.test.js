@@ -23,9 +23,9 @@ Options:
   -h, --help  output help
 `;
     const res = parseBlock("Commands:", text);
-    assert.deepEqual(res,JSON.stringify([['foo','does foo'],['bar','does bar']]) );
+    assert.deepEqual(res,[['foo','does foo'],['bar','does bar']]);
     const res2 = parseBlock("Options:", text);
-    assert.deepEqual(res2,JSON.stringify([['-h, --help','output help']]) );
+    assert.deepEqual(res2,[['-h, --help','output help']] );
   });
   it("parseBlock throws when no rows are found", () => {
     const { parseBlock } = require(path.join(scriptsDir, "help_to_markdown.js"));
