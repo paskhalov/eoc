@@ -4,13 +4,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-const pty = require("node-pty");
-
 function captureCommandOutput(command, args = []) {
   return new Promise((resolve, reject) => {
     let output = "";
     // Create a fake wide terminal
-    const term = pty.spawn(command, args, {
+    const term = require("node-pty").spawn(command, args, {
       name: "xterm-color",
       cols: 200, // controls wrapping width
       rows: 40,

@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-const fs = require("fs");
-
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
