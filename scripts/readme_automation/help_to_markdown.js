@@ -48,7 +48,7 @@ function parseBlock(block_name,text) {
 }
 
 module.exports = {
-  parseBlock
+  parseBlock, bulletListTemplate
 };
 
 function main() {

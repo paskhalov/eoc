@@ -83,4 +83,11 @@ describe("readme_automation scripts", () => {
       assert.strictEqual(output, "hello");
   });
 
+  it("bulletListTemplate renders a list", async () => {
+
+      const { bulletListTemplate } = require(helpToMarkdownPath);
+      const output = bulletListTemplate(['one','two','three']);
+      assert.strictEqual(output, "hello");
+  });
+
 });
