@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-function captureCommandOutput(command, args = []) {
+export function captureCommandOutput(command, args = []) {
   return new Promise((resolve, reject) => {
     let output = "";
     // Create a fake wide terminal
@@ -27,5 +27,3 @@ function captureCommandOutput(command, args = []) {
     });
   });
 }
-
-module.exports = { captureCommandOutput };

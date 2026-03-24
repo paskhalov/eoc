@@ -14,13 +14,13 @@ function tableTemplate(rows,firstColumnName)
   return `${table.join("\n")  }\n`;
 }
 
-function bulletListTemplate(rows)
+export function bulletListTemplate(rows)
 {
     const list = rows.map(([cmd, desc]) => `* \`${cmd}\`  ${desc}`);
     return `${list.join("\n")  }\n`;
 }
 
-function parseBlock(block_name,text) {
+export function parseBlock(block_name,text) {
   const lines = text.split("\n");
   let inBlock = false;
   const rows = [];
@@ -42,8 +42,3 @@ function parseBlock(block_name,text) {
   }
   return rows;
 }
-
-module.exports = {
-  parseBlock, bulletListTemplate
-};
-
