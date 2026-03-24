@@ -416,13 +416,23 @@ program.command('fmt')
     });
   });
 
-try {
-  program.parse(process.argv);
-} catch (e) {
-  console.error(e.message);
-  console.debug(e.stack);
-  process.exit(1);
+if (require.main === module) {
+  try {
+    program.parse(process.argv);
+  } catch (e) {
+    console.error(e.message);
+    console.debug(e.stack);
+    process.exit(1);
+  }
 }
+
+function getHelp() {
+  return program.helpInformation();
+}
+
+module.exports = {
+  getHelp
+};
 
 /**
  * Checks --clean option and clears the .eoc directory if true.
