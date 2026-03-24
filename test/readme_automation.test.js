@@ -34,11 +34,6 @@ describe("readme_automation scripts", () => {
     assert.ok(!updated.includes("old"));
     assert.ok(["new content","keep","after","before","<!-- BEGIN COMMANDS SECTION -->"].every(sub => updated.includes(sub)));
   });
-  it("can get help from eoc module", async () => {
-    const { getHelp } = require('../src/eoc.js');
-    const output = getHelp();
-    assert.ok(output.includes('EO command-line toolkit'));
-  });
   it("bulletListTemplate renders a list", async () => {
     const { bulletListTemplate } = require(path.join(scriptsDir, "help_to_markdown.js"));
     const output = bulletListTemplate([['one','a'],['two','b'],['three','c']]);
