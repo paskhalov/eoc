@@ -4,16 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-function tableTemplate(rows,firstColumnName)
-{
-  const table = [
-    `| ${firstColumnName} | Description |`,
-    "|--------|-------------|",
-    ...rows.map(([cmd, desc]) => `| \`${cmd}\` | ${desc} |`)
-  ];
-  return `${table.join("\n")  }\n`;
-}
-
 function bulletListTemplate(rows)
 {
     const list = rows.map(([cmd, desc]) => `* \`${cmd}\`  ${desc}`);
