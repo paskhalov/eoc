@@ -11,29 +11,10 @@ const { execFileSync } = require("child_process");
 const Module = require("module");
 
 describe("readme_automation scripts", () => {
-  const helpToMarkdownPath = path.resolve(
-    __dirname,
-    "../scripts/readme_automation/help_to_markdown.js"
-  );
-  const injectReadmeSectionPath = path.resolve(
-    __dirname,
-    "../scripts/readme_automation/inject_readme_section.js"
-  );
-  const ptyCapturePath = path.resolve(
-    __dirname,
-    "../scripts/readme_automation/pty_capture.js"
-  );
-  const modifyReadmeExecPath = path.resolve(
-    __dirname,
-    "../scripts/readme_automation/modify_readme_exec.js"
-  );
-  const refreshReadmeSectionsPath = path.resolve(
-    __dirname,
-    "../scripts/readme_automation/refresh_readme_sections.sh"
-  );
+  const scriptsDir = path.resolve(__dirname, "../scripts/readme_automation");
 
   it("parseBlock builds a markdown table from a help block", () => {
-    const { parseBlock } = require(helpToMarkdownPath);
+    const { parseBlock } = require(path.join(scriptsDir, "help_to_markdown.js"));
     const text = [
       "Usage: eoc [options] [command]",
       "",
@@ -52,7 +33,7 @@ describe("readme_automation scripts", () => {
   });
 
   it("parseBlock throws when no rows are found", () => {
-    const { parseBlock } = require(helpToMarkdownPath);
+    const { parseBlock } = require(path.join(scriptsDir, "help_to_markdown.js"));
     assert.throws(
       () => parseBlock("Commands:", ""),
       /no data/
@@ -60,7 +41,7 @@ describe("readme_automation scripts", () => {
   });
 
   it("updateSection replaces only the requested section", () => {
-    const { updateSection } = require(injectReadmeSectionPath);
+    const { updateSection } = require(path.join(scriptsDir, "inject_readme_section.js"));
     const readme = [
       "before",
       "<!-- BEGIN COMMANDS SECTION -->",
@@ -80,14 +61,14 @@ describe("readme_automation scripts", () => {
 
   it("captureCommandOutput resolves collected output", async () => {
 
-      const { captureCommandOutput } = require(ptyCapturePath);
+      const { captureCommandOutput } = require(path.join(scriptsDir, "pty_capture.js"));
       const output = await captureCommandOutput("printf", ["hello"]);
       assert.strictEqual(output, "hello");
   });
 
   it("bulletListTemplate renders a list", async () => {
 
-      const { bulletListTemplate } = require(helpToMarkdownPath);
+      const { bulletListTemplate } = require(path.join(scriptsDir, "help_to_markdown.js"));
       const output = bulletListTemplate([['one','a'],['two','b'],['three','c']]);
       assert.strictEqual(output, "* `one`  a\n* `two`  b\n* `three`  c\n");
   });
