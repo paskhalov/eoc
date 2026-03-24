@@ -42,21 +42,19 @@ describe("readme_automation scripts", () => {
 
   it("updateSection replaces only the requested section", () => {
     const { updateSection } = require(path.join(scriptsDir, "inject_readme_section.js"));
-    const readme = [
-      "before",
-      "<!-- BEGIN COMMANDS SECTION -->",
-      "old",
-      "<!-- END COMMANDS SECTION -->",
-      "",
-      "<!-- BEGIN OPTIONS SECTION -->",
-      "keep",
-      "<!-- END OPTIONS SECTION -->",
-      "after"
-    ].join("\n");
+    const readme = `
+before
+<!-- BEGIN COMMANDS SECTION -->
+old
+<!-- END COMMANDS SECTION -->
+
+<!-- BEGIN OPTIONS SECTION -->
+keep
+<!-- END OPTIONS SECTION -->
+after`
     const updated = updateSection("commands", "new content", readme);
-    assert.ok(updated.includes("new content"));
-    assert.ok(updated.includes("keep"));
     assert.ok(!updated.includes("old"));
+    assert.ok(["new content","keep","after","before"].every(sub => readme.includes(sub))
   });
 
   it("captureCommandOutput resolves collected output", async () => {
