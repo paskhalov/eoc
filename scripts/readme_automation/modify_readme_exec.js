@@ -7,7 +7,7 @@
 const fs = require("fs");
 const assert = require('assert');
 const { parseBlock } = require("./help_to_markdown");
-const { getHelp } = require("../src/eoc");
+const { getHelp } = require("../../src/eoc");
 const { updateSection } = require("./inject_readme_section");
 
 async function main (){
