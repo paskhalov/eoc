@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const rel = require('relative');
 const readline = require('readline');
-const { spawn } = require('child_process');
+const {spawn} = require('child_process');
 const colors = require('colors');
 const parserVersion = require('./parser-version');
 
@@ -31,7 +31,13 @@ let beginning,
  * @param {Object} opts - Opts provided to the "eoc"
  * @return {Array} of Maven options
  */
-module.exports.flags = function (opts) {
+module.exports.flags = function(opts) {
+  if (opts.sources === undefined) {
+    throw new Error('Sources directory is not specified. Please provide it with --sources option.');
+  }
+  if (opts.target === undefined) {
+    throw new Error('Target directory is not specified. Please provide it with --target option.');
+  }
   const sources = path.resolve(opts.sources);
   console.debug('Sources in %s', rel(sources));
   const target = path.resolve(opts.target);
@@ -50,6 +56,7 @@ module.exports.flags = function (opts) {
     opts.verbose ? '--errors' : '',
     opts.verbose ? '' : '--quiet',
     opts.debug ? '--debug' : '',
+    opts.updateSnapshots ? '--update-snapshots' : '',
     `-Deo.sourcesDir=${sources}`,
     `-Deo.targetDir=${target}`,
     `-Deo.outputDir=${path.resolve(opts.target, 'classes')}`,
@@ -58,7 +65,7 @@ module.exports.flags = function (opts) {
     `-Deo.placedFormat=csv`,
     `-Deo.skipLinting=${opts.blind ? 'true' : 'false'}`,
     opts.trackTransformationSteps ? '-Deo.trackTransformationSteps' : '',
-  ];
+  ].filter(flag => flag !== '');
 };
 
 /**
@@ -68,11 +75,11 @@ module.exports.flags = function (opts) {
  * @param {Boolean} [batch] - Is it batch mode (TRUE) or interactive (FALSE)?
  * @return {Promise} of maven execution task
  */
-module.exports.mvnw = function (args, tgt, batch) {
+module.exports.mvnw = function(args, tgt, batch) {
   return new Promise((resolve, reject) => {
     console.debug(`Running mvnw with arguments: ${args.join(' ')}`);
     target = tgt;
-    phase = args[0];
+    phase = args.filter((a) => !a.startsWith('-')).join(' + ');
     const home = path.resolve(__dirname, '../mvnw');
     let bin = path.resolve(home, 'mvnw') + (process.platform === 'win32' ? '.cmd' : '');
     if (!fs.existsSync(bin)) {
@@ -82,7 +89,6 @@ module.exports.mvnw = function (args, tgt, batch) {
     const params = args.filter((t) => t !== '').concat([
       '--batch-mode',
       '--color=never',
-      '--update-snapshots',
       '--fail-fast',
       '--strict-checksums',
     ]);
@@ -129,7 +135,7 @@ module.exports.mvnw = function (args, tgt, batch) {
 function start() {
   running = true;
   beginning = Date.now();
-  const check = function () {
+  const check = function() {
     if (running) {
       print();
       setTimeout(check, 1000);

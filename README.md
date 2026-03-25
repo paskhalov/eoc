@@ -9,6 +9,7 @@
 [![codecov](https://codecov.io/gh/objectionary/eoc/branch/master/graph/badge.svg)](https://codecov.io/gh/objectionary/eoc)
 [![Hits-of-Code](https://hitsofcode.com/github/objectionary/eoc)](https://hitsofcode.com/view/github/objectionary/eoc)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/objectionary/eoc/blob/master/LICENSE.txt)
+[![Release](https://img.shields.io/github/v/release/objectionary/eoc.svg)](https://github.com/objectionary/eoc/releases/tag/0.34.1)
 
 This is a command-line tool-kit for [EO](https://www.eolang.org)
 programming languages, allowing you to compile EO programs, test, dataize,
@@ -19,14 +20,14 @@ First, you install [npm][npm-install] and [Java SE][java-se].
 Then, you install [eolang][npm] package, using [npm][npm-install]:
 
 ```bash
-npm install -g eolang@0.34.0
+npm install -g eolang@0.34.1
 ```
 
 You can also use [Homebrew] (on macOS):
 
 ```bash
 brew tap objectionary/eoc https://github.com/objectionary/eoc
-brew install objectionary/eoc/eolang@0.34.0
+brew install objectionary/eoc/eolang@0.34.1
 ```
 
 Or install it via [Nix flakes](https://nixos.wiki/wiki/Flakes):
@@ -143,6 +144,9 @@ There are also commands that help manipulate with XMIR and EO sources
 * `docs` generates HTML documentation from `.xmir` files
 * `latex` generates `.tex` files from `.eo` sources
 * `fmt` formats `.eo` files in the source directory
+* `normalize` normalizes `.eo` files via phi-calculus rewriting using
+  [phino](https://github.com/objectionary/phino) (must be installed separately);
+  original files are saved to `.eoc/before-normalize/` for debugging
 * ~~`translate` converts Java/C++/Python/etc. program to EO program~~
 * ~~`demu` removes `cage` and `memory` objects~~
 * ~~`dejump` removes `goto` objects~~

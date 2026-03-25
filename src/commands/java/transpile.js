@@ -16,8 +16,18 @@ const path = require('path');
 module.exports = function(opts) {
   const sources = path.resolve(opts.target, 'generated-sources');
   return elapsed(async (tracked) => {
-    const r = await mvnw(['eo:transpile'].concat(flags(opts)), opts.target, opts.batch);
+    const r = await mvnw(goals().concat(flags(opts)), opts.target, opts.batch);
     tracked.print(`Java sources generated in ${rel(sources)}`);
     return r;
   });
 };
+
+/**
+ * Command to get Maven goals for transpile command.
+ * @return {Array.<String>} of Maven goals to run for transpile command
+ */
+module.exports.goals = goals;
+
+function goals() {
+  return ['eo:transpile'];
+}

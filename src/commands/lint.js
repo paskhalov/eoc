@@ -15,14 +15,12 @@ const semver = require('semver');
  * @return {Promise} of assemble task
  */
 module.exports = function(opts) {
-  const extra = [
-    `-Deo.failOnWarning=${opts.easy ? 'false' : 'true'}`,
-  ];
+  const extra = extraFlags(opts);
   return elapsed(async (tracked) => {
-    if (opts.parser.endsWith('-SNAPSHOT') || semver.gte(opts.parser, '0.45.0')) {
+    if (goals(opts)[0] === 'eo:lint') {
       try {
         const r = await mvnw(
-          ['eo:lint'].concat(flags(opts)).concat(extra),
+          goals(opts).concat(flags(opts)).concat(extra),
           opts.target, opts.batch
         );
         tracked.print(`EO program linted in ${rel(path.resolve(opts.target))}`);
@@ -30,13 +28,13 @@ module.exports = function(opts) {
       } catch (error) {
         throw new Error(
           'There are errors and/or warnings; you may disable warnings via the --easy option',
-          { cause: error }
+          {cause: error}
         );
       }
     }
     try {
       const r = await mvnw(
-        ['eo:verify'].concat(flags(opts)).concat(extra),
+        goals(opts).concat(flags(opts)).concat(extra),
         opts.target, opts.batch
       );
       tracked.print(`EO program verified in ${rel(path.resolve(opts.target))}`);
@@ -44,8 +42,31 @@ module.exports = function(opts) {
     } catch (error) {
       throw new Error(
         'You may disable warnings via the --easy option',
-        { cause: error }
+        {cause: error}
       );
     }
   });
 };
+
+/**
+ * Command to get Maven goals for lint command.
+ * @return {Array.<String>} of Maven goals to run for lint command
+ */
+module.exports.goals = goals;
+
+/**
+* Command to get extra Maven flags for lint command.
+* @return {Array.<String>} of extra Maven flags to run for lint command
+*/
+module.exports.extras = extras;
+
+function goals(opts) {
+  if (opts.parser.endsWith('-SNAPSHOT') || semver.gte(opts.parser, '0.45.0')) {
+    return ['eo:lint'];
+  }
+  return ['eo:verify'];
+}
+
+function extras(opts) {
+  return [`-Deo.failOnWarning=${opts.easy ? 'false' : 'true'}`];
+}

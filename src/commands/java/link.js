@@ -16,8 +16,18 @@ const path = require('path');
 module.exports = function(opts) {
   const jar = path.resolve(opts.target, 'eoc.jar');
   return elapsed(async (tracked) => {
-    const r = await mvnw(['jar:jar', 'shade:shade'].concat(flags(opts)), opts.target, opts.batch);
+    const r = await mvnw(goals().concat(flags(opts)), opts.target, opts.batch);
     tracked.print(`Executable JAR created at ${rel(jar)}`);
     return r;
   });
 };
+
+/**
+ * Command to get Maven goals for link command.
+ * @return {Array.<String>} of Maven goals to run for link command
+ */
+module.exports.goals = goals;
+
+function goals() {
+  return ['jar:jar', 'shade:shade'];
+}

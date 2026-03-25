@@ -16,8 +16,19 @@ const path = require('path');
 module.exports = function(opts) {
   const foreign = path.resolve(opts.target, 'eo-foreign.json');
   return elapsed(async (tracked) => {
-    const r = await mvnw(['eo:register'].concat(flags(opts)), opts.target, opts.batch);
+    const r = await mvnw(goals().concat(flags(opts)), opts.target, opts.batch);
     tracked.print(`EO objects registered in ${rel(foreign)}`);
     return r;
   });
 };
+
+/**
+ * Command to get Maven goals for register command.
+ * @return {Array.<String>} of Maven goals to run for register command
+ */
+module.exports.goals = goals;
+
+function goals() {
+  return ['eo:register'];
+}
+
