@@ -4,6 +4,20 @@
  * SPDX-License-Identifier: MIT
  */
 
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function updateSection(sectionName, newContent, readMeContent) {
+  const start = `<!-- BEGIN ${sectionName.toUpperCase()} SECTION -->`;
+  const end = `<!-- END ${sectionName.toUpperCase()} SECTION -->`;
+  const regex = new RegExp(
+    `(${escapeRegex(start)})([\\s\\S]*?)(${escapeRegex(end)})`,
+    "g"
+  );
+  return readMeContent.replace(regex, `$1\n${newContent}\n$3`);
+}
+
 function bulletListTemplate(rows)
 {
   const list = rows.map(([cmd, desc]) => `* \`${cmd}\`  ${desc}`);
@@ -34,6 +48,6 @@ function parseBlock(block_name,text) {
 }
 
 module.exports = {
-  parseBlock, bulletListTemplate
+  parseBlock, bulletListTemplate, updateSection
 };
 

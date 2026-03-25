@@ -28,7 +28,7 @@ describe("readme_automation scripts", () => {
     );
   });
   it("updateSection replaces only the requested section", () => {
-    const { updateSection } = require(path.join(scriptsDir, "inject_readme_section.js"));
+    const { updateSection } = require(path.join(scriptsDir, "help_to_markdown.js"));
     const readme = `before\n<!-- BEGIN COMMANDS SECTION -->\nold\n<!-- END COMMANDS SECTION -->\n<!-- BEGIN OPTIONS SECTION -->\nkeep\n<!-- END OPTIONS SECTION -->\nafter`
     const updated = updateSection("commands", "new content", readme);
     assert.ok(!updated.includes("old"));

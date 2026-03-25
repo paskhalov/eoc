@@ -6,9 +6,8 @@
 
 const fs = require("fs");
 const assert = require('assert');
-const { parseBlock, bulletListTemplate } = require("./help_to_markdown");
+const { parseBlock, bulletListTemplate, updateSection } = require("./help_to_markdown");
 const { getHelp } = require("../../src/eoc");
-const { updateSection } = require("./inject_readme_section");
 
 async function main (){
   const tmp_data = {};
