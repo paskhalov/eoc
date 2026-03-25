@@ -8,7 +8,7 @@ const tinted = require('./tinted-console');
 const {program} = require('commander'),
 
   /**
- * Target language option. Testing
+ * Target language option.
  */
   language = {
     java: 'Java',
