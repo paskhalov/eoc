@@ -21,7 +21,7 @@ function main (){
   assert.ok(readMeContent.length > 0,"readMeContent should have text")
   readMeContent = updateSection('commands', commandsMarkdown, readMeContent);
   assert.ok(readMeContent.length > 0,"readMeContent should sill have text after modification")
-  fs.writeFileSync('README.md',file, readMeContent);
+  fs.writeFileSync('README.md',readMeContent);
 }
 
 if (require.main === module) {
