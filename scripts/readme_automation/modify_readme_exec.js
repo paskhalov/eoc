@@ -16,7 +16,7 @@ function main (){
   assert.ok(["Options:","Commands:"].every(sub => help_text.includes(sub)),'"eoc --help" should includes Commands and Options');
   tmp_data.HELP_TEXT = help_text;
   const commands = parseBlock('Commands:',help_text);
-  const commandsMarkdown = bulletListTemplate(res);
+  const commandsMarkdown = bulletListTemplate(commands);
   let readMeContent = fs.readFileSync('README.md', "utf8");
   readMeContent = updateSection('commands', commandsMarkdown, readMeContent);
   console.log(readMeContent);
